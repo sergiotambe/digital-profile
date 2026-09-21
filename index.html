@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sergio Tambè - Digital Profile</title>
+    
+    <!-- Font e Icone -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #0f172a;
+            display: flex;
+            min-height: 100vh;
+            background-color: #a8e0d7;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(115, 206, 219, 0.8) 0px, transparent 50%),
+                radial-gradient(at 85% 25%, rgba(162, 222, 208, 0.9) 0px, transparent 50%),
+                radial-gradient(at 20% 85%, rgba(132, 210, 197, 0.85) 0px, transparent 50%),
+                radial-gradient(at 80% 80%, rgba(200, 240, 230, 0.9) 0px, transparent 50%);
+            background-size: 150% 150%;
+            background-attachment: fixed;
+        }
+
+        /* MENU LATERALE FISSO */
+        .sidebar {
+            width: 260px;
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #2c5282;
+            text-align: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            background-color: transparent;
+            border: none;
+            color: #1a202c;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            transform: translateX(3px);
+        }
+
+        .nav-btn.active {
+            background-color: #ffffff;
+            color: #0d9488;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* CONTENUTO PRINCIPALE */
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 20px;
+        }
+
+        .tab-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-section.active-tab {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* PROFILO HOME */
+        .profile-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-pic {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px auto;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile-bio {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.5;
+            color: #2d3748;
+            margin: 0 auto 20px auto;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-icons a {
+            color: #0f172a;
+            font-size: 22px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.15);
+        }
+
+        .section-heading {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* BOTTONI LINK */
+        .link-button {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            color: #000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+
+        .link-button:hover {
+            background-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+        }
+
+        .btn-thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+            background-color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .btn-text {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 0 10px;
+        }
+
+        /* STILI POPUP (MODAL) COME LINKTREE */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 28px;
+            padding: 30px 25px 25px 25px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            animation: modalUp 0.25s ease-out;
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh;
+        }
+
+        @keyframes modalUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .modal-body {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #1a202c;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 5px;
+        }
+
+        .modal-body p {
+            margin-bottom: 12px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .modal-circle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #334155;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .modal-circle-btn:hover {
+            background-color: #f1f5f9;
+            transform: scale(1.05);
+        }
+
+        /* SMARTPHONE RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            }
+
+            .sidebar-title {
+                margin-bottom: 10px;
+            }
+
+            .nav-links {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+
+            .nav-btn {
+                white-space: nowrap;
+                justify-content: center;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENU LATERALE FISSO -->
+    <nav class="sidebar">
+        <div class="sidebar-title">Menu Profilo</div>
+        <ul class="nav-links">
+            <li>
+                <button class="nav-btn active" onclick="openTab('home', this)">
+                    <i class="fa-solid fa-house"></i> Home
+                </button>
+            </li>
+            <li>
+                <button class="nav-btn" onclick="openTab('magistrale', this)">
+                    <i class="fa-solid fa-graduation-cap"></i> Laurea Magistrale
+                </button>
+            </li>
+            <li>
+                <button class="nav-btn" onclick="openTab('triennale', this)">
+                    <i class="fa-solid fa-book-open"></i> Laurea Triennale
+                </button>
+            </li>
+            <li>
+                <button class="nav-btn" onclick="openTab('esperienze', this)">
+                    <i class="fa-solid fa-briefcase"></i> Esperienze
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- AREA CONTENUTI -->
+    <main class="main-content">
+        <div class="card-container">
+
+            <!-- HOME -->
+            <section id="home" class="tab-section active-tab">
+                <div class="profile-section">
+                    <img src="fotoxhtml2.jpg" alt="Sergio Tambè" class="profile-pic">
+                    <h1 class="profile-name">Sergio Tambe'</h1>
+                    <p class="profile-bio">
+                        Laureando Master Data Science Specializzato in Machine Learning, Deep Learning, AI, Computer Vision e Data Analysis
+                    </p>
+                </div>
+
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/sergio.t02/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/393312937413" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://www.linkedin.com/in/sergio-tambe-a37506319/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="mailto:sergiotambe2002@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="https://github.com/sergiotambe" target="_blank"><i class="fa-brands fa-github"></i></a>
+                </div>
+
+                <a href="https://drive.google.com/drive/folders/1QTUczIA8b0j8_DVKCAmGsluUEURgaurk" class="link-button" target="_blank">
+                    <img src="logocvv.jpg" class="btn-thumbnail" alt="Icona CV">
+                    <span class="btn-text">CV and certifications - Sergio Tambè (Data Scientist)</span>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </a>
+
+                <a href="https://github.com/sergiotambe" class="link-button" target="_blank">
+                    <div class="btn-thumbnail"><i class="fa-brands fa-github fa-lg"></i></div>
+                    <span class="btn-text">GitHub</span>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </a>
+            </section>
+
+            <!-- LAUREA MAGISTRALE -->
+            <section id="magistrale" class="tab-section">
+                <h2 class="section-heading">Laurea Magistrale in DATA SCIENCE</h2>
+
+                <!-- Bottone che apre il Popup -->
+                <button class="link-button" onclick="openModal('modal-materie-magistrale')">
+                    <div class="btn-thumbnail">📘</div>
+                    <span class="btn-text">Principali materie studiate</span>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+
+                <button class="link-button" onclick="openModal('modal-competenze-magistrale')">
+                    <div class="btn-thumbnail">🧠</div>
+                    <span class="btn-text">Competenze professionali acquisite</span>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+
+                <button class="link-button" onclick="openModal('modal-erasmus')">
+                    <div class="btn-thumbnail">🇪🇺</div>
+                    <span class="btn-text">Erasmus+ Universidade do Porto</span>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+            </section>
+
+            <!-- LAUREA TRIENNALE -->
+            <section id="triennale" class="tab-section">
+                <h2 class="section-heading">Laurea Triennale in ECONOMIA</h2>
+
+                <button class="link-button" onclick="openModal('modal-materie-triennale')">
+                    <div class="btn-thumbnail">📘</div>
+                    <span class="btn-text">Principali materie studiate</span>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+
+                <button class="link-button" onclick="openModal('modal-competenze-triennale')">
+                    <div class="btn-thumbnail">🧠</div>
+                    <span class="btn-text">Competenze professionali acquisite</span>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+            </section>
+
+            <!-- ESPERIENZE -->
+            <section id="esperienze" class="tab-section">
+                <h2 class="section-heading">My Work Experience</h2>
+
+                <button class="link-button" onclick="openModal('modal-esperienza')">
+                    <div class="btn-thumbnail">⚙️</div>
+                    <span class="btn-text">Digital Field Operations Assistant</span>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- POPUP 1: MATERIE MAGISTRALE (Dal tuo screenshot) -->
+    <div id="modal-materie-magistrale" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">Principali materie studiate</div>
+            <div class="modal-body">
+                <p>- <strong>Area Informatica:</strong> Basics of Computing (Python), Data Base (SQL), Deep Learning (Computer Vision).</p>
+                <p>- <strong>Area Statistica e Analisi Dati:</strong> Statistical Unsupervised Learning (R), Machine Learning, Time Series, Data Mining.</p>
+                <p>- <strong>Area Visualizzazione dati e Analisi delle reti:</strong> Big Data Analysis (Dashboard Streamlit), Business Intelligence (Power BI), Network Science (Gephi), Optimization.</p>
+                <p>- <strong>Economia e Management:</strong> Digital Management, High Tech Markets.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-circle-btn" onclick="closeModal('modal-materie-magistrale')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP 2: COMPETENZE MAGISTRALE -->
+    <div id="modal-competenze-magistrale" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">Competenze professionali acquisite</div>
+            <div class="modal-body">
+                <p>- <strong>Applicazione linguaggi di programmazione</strong> come Python, R ed SQL.</p>
+                <p>- <strong>Capacità di raccogliere, ripulire ed elaborare grandi moli di dati</strong> applicando modelli statistici e reti neurali per individuare pattern, tendenze ed effettuare previsioni.</p>
+                <p>- <strong>Trasformazione di dati complessi in visualizzazioni semplici e intuitive</strong> tramite strumenti come Streamlit e Power BI.</p>
+                <p>- <strong>Capacità di mappare, analizzare e modellare sistemi interconnessi</strong> (es. reti sociali, economiche o infrastrutturali) applicando la teoria dei grafi per identificare relazioni, nodi influenti e dinamiche di diffusione.</p>
+                <p>- <strong>Abilità nel tradurre i risultati analitici in strategie di business concrete</strong>, supportando i processi decisionali del management aziendale e ottimizzando le risorse.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-circle-btn" onclick="closeModal('modal-competenze-magistrale')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP 3: ERASMUS -->
+    <div id="modal-erasmus" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">Erasmus+ presso Universidade do Porto</div>
+            <div class="modal-body">
+                <p>Ho partecipato al programma <strong>Erasmus+ Studio</strong> presso l’<strong>Universidade do Porto U.P.</strong>, in Portogallo, da febbraio a luglio 2026. Un’esperienza che ha combinato lo studio in un contesto accademico diverso da quello italiano con un’immersione <strong>multiculturale</strong>, grazie al confronto quotidiano con studenti e professionisti da tutto il mondo e con la cultura locale..</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-circle-btn" onclick="closeModal('modal-erasmus')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP 4: MATERIE TRIENNALE -->
+    <div id="modal-materie-triennale" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">Principali materie studiate (Triennale)</div>
+            <div class="modal-body">
+                <p>- <strong>Area Aziendale:</strong> Contabilità e Bilancio, Digital Marketing, Economia e Gestione delle Imprese.</p>
+                <p>- <strong>Area Economica:</strong> Microeconomia, Macroeconomia, Politica Economica, Scienza delle Finanze.</p>
+                <p>- <strong>Area Matematico-Statistica:</strong> Matematica Generale, Matematica Finanziaria, Statistica, Statistica Economica.</p>
+                <p>- <strong>Area Giuridica:</strong> Diritto Privato, Diritto Commerciale.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-circle-btn" onclick="closeModal('modal-materie-triennale')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP 5: COMPETENZE TRIENNALE -->
+    <div id="modal-competenze-triennale" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">Competenze professionali acquisite (Triennale)</div>
+            <div class="modal-body">
+                <p>- <strong>Abilità nell'elaborazione statistica dei dati</strong> e nell'applicazione di modelli di matematica finanziaria per il calcolo e la valutazione degli investimenti.</p>
+		<p>- <strong>Comprensione delle dinamiche micro e macroeconomiche di mercato</strong> e dell'impatto delle politiche pubbliche e fiscali sul sistema economico.</p>
+		<p>- <strong>Conoscenza del quadro legale di riferimento per le attività aziendali</strong>, dai contratti privati alle normative societarie e commerciali.</p>
+		<p>- <strong>Creazione e gestione sitoweb e social network</strong> combinata applicando logiche di posizionamento, promozione e analisi degli indicatori chiave tipici del digital marketing.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-circle-btn" onclick="closeModal('modal-competenze-triennale')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP 6: ESPERIENZA -->
+    <div id="modal-esperienza" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">Digital Field Operations Assistant</div>
+            <div class="modal-body">
+                <p><strong>Tirocinio universitario</strong> in cui l'attività consisteva nel:
+Utilizzo avanzato di <strong>Airtable</strong> per la raccolta, gestione e analisi dei dati, inclusa la creazione di <strong>dashboard</strong>. Creazione e gestione di sondaggi tramite software o programmazione di <strong>chatbot</strong>, con estrazione e raccolta <strong>automatizzata</strong> dei dati all'interno di Airtable. Supporto operativo per la gestione della piattaforma proprietaria Meetingood, Attività di <strong>testing e controllo qualità di chatbot e questionari</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-circle-btn" onclick="closeModal('modal-esperienza')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT GESTIONE TAB E POPUP -->
+    <script>
+        // Navigazione Tab Menu Laterale
+        function openTab(tabId, btnElement) {
+            const sections = document.querySelectorAll('.tab-section');
+            sections.forEach(sec => sec.classList.remove('active-tab'));
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active-tab');
+            btnElement.classList.add('active');
+        }
+
+        // Apertura e Chiusura Popup (Modal)
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Chiudi il popup se si clicca sullo sfondo scuro esterno
+        function closeModalOnOuterClick(event, modalElement) {
+            if (event.target === modalElement) {
+                modalElement.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
