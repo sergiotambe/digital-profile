@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sergio Tambè - Digital Profile</title>
     
-    <!-- Font e Icone -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -31,7 +30,6 @@
             background-attachment: fixed;
         }
 
-        /* MENU LATERALE FISSO */
         .sidebar {
             width: 260px;
             background-color: rgba(255, 255, 255, 0.75);
@@ -92,7 +90,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        /* CONTENUTO PRINCIPALE */
         .main-content {
             margin-left: 260px;
             flex: 1;
@@ -123,7 +120,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* PROFILO HOME */
         .profile-section {
             text-align: center;
             margin-bottom: 25px;
@@ -178,7 +174,6 @@
             text-align: center;
         }
 
-        /* BOTTONI LINK */
         .link-button {
             display: flex;
             align-items: center;
@@ -221,7 +216,6 @@
             padding: 0 10px;
         }
 
-        /* STILI POPUP (MODAL) COME LINKTREE */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -303,7 +297,6 @@
             transform: scale(1.05);
         }
 
-        /* SMARTPHONE RESPONSIVE */
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -342,7 +335,6 @@
 </head>
 <body>
 
-    <!-- MENU LATERALE FISSO -->
     <nav class="sidebar">
         <div class="sidebar-title">Data Scientist / AI Engineer / Data Engineer</div>
         <ul class="nav-links">
@@ -369,11 +361,9 @@
         </ul>
     </nav>
 
-    <!-- AREA CONTENUTI -->
     <main class="main-content">
         <div class="card-container">
 
-            <!-- HOME -->
             <section id="home" class="tab-section active-tab">
                 <div class="profile-section">
                     <img src="fotocvvv.png" alt="Sergio Tambè" class="profile-pic">
@@ -404,7 +394,6 @@
                 </a>
             </section>
 
-            <!-- LAUREA MAGISTRALE -->
             <section id="magistrale" class="tab-section">
                 <h2 class="section-heading">Laurea Magistrale in DATA SCIENCE</h2>
 
@@ -428,7 +417,6 @@
                 </button>
             </section>
 
-            <!-- LAUREA TRIENNALE -->
             <section id="triennale" class="tab-section">
                 <h2 class="section-heading">Laurea Triennale in ECONOMIA</h2>
 
@@ -445,7 +433,6 @@
                 </button>
             </section>
 
-            <!-- ESPERIENZE -->
             <section id="esperienze" class="tab-section">
                 <h2 class="section-heading">My Work Experience</h2>
 
@@ -459,7 +446,6 @@
         </div>
     </main>
 
-    <!-- POPUP 1: MATERIE MAGISTRALE (Dal tuo screenshot) -->
     <div id="modal-materie-magistrale" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
         <div class="modal-card">
             <div class="modal-header">Principali materie studiate</div>
@@ -475,7 +461,6 @@
         </div>
     </div>
 
-    <!-- POPUP 2: COMPETENZE MAGISTRALE -->
     <div id="modal-competenze-magistrale" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
         <div class="modal-card">
             <div class="modal-header">Competenze professionali acquisite</div>
@@ -492,7 +477,6 @@
         </div>
     </div>
 
-    <!-- POPUP 3: ERASMUS -->
     <div id="modal-erasmus" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
         <div class="modal-card">
             <div class="modal-header">Erasmus+ presso Universidade do Porto</div>
@@ -505,7 +489,6 @@
         </div>
     </div>
 
-    <!-- POPUP 4: MATERIE TRIENNALE -->
     <div id="modal-materie-triennale" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
         <div class="modal-card">
             <div class="modal-header">Principali materie studiate (Triennale)</div>
@@ -521,7 +504,6 @@
         </div>
     </div>
 
-    <!-- POPUP 5: COMPETENZE TRIENNALE -->
     <div id="modal-competenze-triennale" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
         <div class="modal-card">
             <div class="modal-header">Competenze professionali acquisite (Triennale)</div>
@@ -537,7 +519,6 @@
         </div>
     </div>
 
-    <!-- POPUP 6: ESPERIENZA -->
     <div id="modal-esperienza" class="modal-overlay" onclick="closeModalOnOuterClick(event, this)">
         <div class="modal-card">
             <div class="modal-header">Digital Field Operations Assistant</div>
@@ -551,9 +532,7 @@ Utilizzo avanzato di <strong>Airtable</strong> per la raccolta, gestione e anali
         </div>
     </div>
 
-    <!-- SCRIPT GESTIONE TAB E POPUP -->
     <script>
-        // Navigazione Tab Menu Laterale
         function openTab(tabId, btnElement) {
             const sections = document.querySelectorAll('.tab-section');
             sections.forEach(sec => sec.classList.remove('active-tab'));
@@ -565,7 +544,6 @@ Utilizzo avanzato di <strong>Airtable</strong> per la raccolta, gestione e anali
             btnElement.classList.add('active');
         }
 
-        // Apertura e Chiusura Popup (Modal)
         function openModal(modalId) {
             document.getElementById(modalId).style.display = 'flex';
         }
@@ -574,7 +552,6 @@ Utilizzo avanzato di <strong>Airtable</strong> per la raccolta, gestione e anali
             document.getElementById(modalId).style.display = 'none';
         }
 
-        // Chiudi il popup se si clicca sullo sfondo scuro esterno
         function closeModalOnOuterClick(event, modalElement) {
             if (event.target === modalElement) {
                 modalElement.style.display = 'none';
